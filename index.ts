@@ -1,16 +1,19 @@
 import express from "express";
 import dotenv from 'dotenv';
 import connect from "./db/config";
-
+import bodyParser from 'body-parser';
+import cors from 'cors';
 const app = express();
-dotenv.config()
-const port = process.env.PORT
 connect();
+dotenv.config()
+app.use(cors())
+// app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json())
 
-app.get("/", (req, res)=>{
-    res.send("liiii")
+app.post("/api/signin", (req, res)=>{
+    console.log(req.body)
 })
 
-app.listen(port, ()=>{
-    console.log(`connected to port ${port}`)
+app.listen(process.env.PORT, ()=>{
+    console.log(`connected to port ${process.env.PORT}`)
 });
